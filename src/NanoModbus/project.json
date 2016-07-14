@@ -1,0 +1,29 @@
+{
+  "title": "Nano Modbus",
+  "copyright": "Lingya Tech",
+  "description": "Nano Modbus RTU",
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable"
+  },
+  "dependencies": {},
+  "frameworks": {
+    "net40": {
+      "buildOptions": {
+        "define": [ "TRACE" ],
+        "debugType": "portable"
+      },
+      "dependencies": {},
+      "frameworkAssemblies": {"System.Core": "" }
+    },
+     "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}
