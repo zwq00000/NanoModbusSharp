@@ -11,5 +11,6 @@
 /packages/NUnit.2.6.4
 *.user
 *.lock.json
-/test/NanoModbusTests/bin/Debug
-/test/NanoModbusTests/obj/Debug
+**/bin
+**/obj
+
