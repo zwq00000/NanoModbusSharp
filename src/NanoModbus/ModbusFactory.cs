@@ -39,27 +39,18 @@ namespace Nano.Modbus
             return CreateReadCoilsFrame((byte)device, (short)startRegNum, (short)regCount);
         }
 
-        /// <summary>
-        ///     创建 写多个线圈寄存器的 Modbus 数据帧 ModbusUtils.pushShort(queue, startOffset); ModbusUtils.pushShort(queue,
-        ///     numberOfBits); ModbusUtils.pushByte(queue, data.Length); 从机Id 1 BYTE 功能码 1 BYTE 0X0F 设置起始地址 2
-        ///     BYTE  0X0000 TO 0XFFFF 设置长度  2 BYTE  0X0000 TO 0X7B0 字节计数 1 BYTE N 设置内容  N BYTE
-        /// </summary>
-        public static ModbusFrame CreateWriteCoilsFrame(byte slaveId, CoilStatus coilStatus) {
-            var frame = new WriteCoilsRequest(slaveId, coilStatus);
-            var startRegNumBytes = ByteUtils.ToBytes(coilStatus.StartNum);
-            var coilsCountBytes = ByteUtils.ToBytes(coilStatus.Count);
-            var statusBytes = new byte[1];
-           /* frame._mFrame = new byte[7 + statusBytes.Length];
-            frame._mFrame[0] = slaveId;
-            frame._mFrame[1] = (byte)FunctionCodes.WRITE_COILS;
-            frame._mFrame[2] = startRegNumBytes[0];
-            frame._mFrame[3] = startRegNumBytes[1];
-            frame._mFrame[4] = coilsCountBytes[0];
-            frame._mFrame[5] = coilsCountBytes[1];
-            frame._mFrame[6] = (byte)statusBytes.Length;
-            Array.Copy(statusBytes, 0, frame._mFrame, 7, statusBytes.Length);
-            frame._length = 7 + statusBytes.Length;*/
-            return frame;
+        ///  <summary>
+        ///      创建 写多个线圈寄存器的 Modbus 数据帧 ModbusUtils.pushShort(queue, startOffset); ModbusUtils.pushShort(queue,
+        ///      numberOfBits); ModbusUtils.pushByte(queue, data.Length); 从机Id 1 BYTE 功能码 1 BYTE 0X0F 设置起始地址 2
+        ///      BYTE  0X0000 TO 0XFFFF 设置长度  2 BYTE  0X0000 TO 0X7B0 字节计数 1 BYTE N 设置内容  N BYTE
+        ///  </summary>
+        /// <param name="slaveId">从站Id</param>
+        /// <param name="coilStatus">线圈状态</param>
+        public static WriteCoilsRequest CreateWriteCoilsFrame(byte slaveId, CoilStatus coilStatus) {
+            if (coilStatus == null) {
+                throw new ArgumentNullException(nameof(coilStatus));
+            }
+            return new WriteCoilsRequest(slaveId, coilStatus);
         }
     }
 }

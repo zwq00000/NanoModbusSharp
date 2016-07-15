@@ -35,7 +35,7 @@ namespace Nano.Modbus {
         ///     读取响应数据流
         ///     @param responseBuffer
         /// </summary>
-        protected override bool ReadResponse(byte[] responseBuffer, int length) {
+        protected override bool ReadResponseInternal(byte[] responseBuffer, int length) {
             var slaveId = responseBuffer[0];
             if (slaveId != SlaveId) {
                 // 从站ID 不符

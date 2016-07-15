@@ -171,7 +171,7 @@ namespace Nano.Modbus.Core {
             if (ValidateCrc16(RESPONSE_BUFFER, aduLen, CRC_BUFFER)) {
                 throw new IOException("CRC16 校验错误");
             }
-            return ReadResponse(RESPONSE_BUFFER, aduLen);
+            return ReadResponseInternal(RESPONSE_BUFFER, aduLen);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Nano.Modbus.Core {
         /// <summary>
         ///     读取响应数据
         /// </summary>
-        protected abstract bool ReadResponse(byte[] responseBuffer, int length);
+        protected abstract bool ReadResponseInternal(byte[] responseBuffer, int length);
 
         /// <summary>
         ///     PDU： 协议数据单元 长度

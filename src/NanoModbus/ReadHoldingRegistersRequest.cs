@@ -29,7 +29,7 @@ namespace Nano.Modbus {
             _mHolder.Reset();
         }
 
-        protected override bool ReadResponse(byte[] responseBuffer, int length) {
+        protected override bool ReadResponseInternal(byte[] responseBuffer, int length) {
             if (responseBuffer[1] == (int) FunctionCode) {
                 int byteCount = responseBuffer[2];
                 int regCount = _mHolder.Count;

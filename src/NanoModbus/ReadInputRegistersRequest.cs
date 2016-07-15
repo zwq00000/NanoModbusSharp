@@ -27,7 +27,7 @@ namespace Nano.Modbus {
             _mHolder.Reset();
         }
 
-        protected override bool ReadResponse(byte[] responseBuffer, int length) {
+        protected override bool ReadResponseInternal(byte[] responseBuffer, int length) {
             var regCount = responseBuffer[2]/2;
             for (var i = 0; i < regCount; i++) {
                 var regValue = ByteUtils.BytesToShort(responseBuffer, (i*2 + 3));

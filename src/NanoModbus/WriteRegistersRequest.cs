@@ -36,7 +36,7 @@ namespace Nano.Modbus {
             _mHolder.Reset();
         }
 
-        protected override bool ReadResponse(byte[] responseBuffer, int length) {
+        protected override bool ReadResponseInternal(byte[] responseBuffer, int length) {
             if (responseBuffer[0] == (int) (FunctionCodes.WRITE_REGISTERS + 0x80)) {
                 return false;
                 // throw new IllegalArgumentException("Modbus 错误 WRITE_REGISTERS Error Code:"+Byte.toString(responseBuffer[1]));

@@ -22,7 +22,7 @@ namespace Nano.Modbus {
         /// <summary>
         ///     读取响应数据
         /// </summary>
-        protected override bool ReadResponse(byte[] responseBuffer, int length) {
+        protected override bool ReadResponseInternal(byte[] responseBuffer, int length) {
             return false;
         }
 
