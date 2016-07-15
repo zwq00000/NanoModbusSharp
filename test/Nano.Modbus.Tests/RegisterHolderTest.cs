@@ -4,18 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nano.Modbus;
-using NUnit.Framework;
+using Xunit;
 
 namespace NanoModbusTests {
-    [TestFixture]
     public class RegisterHolderTest {
-
-
-        [Test]
-        public void testToBytes() {
+        [Fact]
+        public void TestToBytes() {
             RegisterHolder holder = new RegisterHolder((byte)1, (short)4, 5);
             Console.WriteLine(ByteUtils.ToHexString(holder.ToBytes()));
-            Assert.AreEqual(ByteUtils.ToHexString(holder.ToBytes()), "9C4100050A00000000000000000000");
+            Assert.Equal(ByteUtils.ToHexString(holder.ToBytes()), "9C 41 00 05 0A 00 00 00 00 00 00 00 00 00 00");
 
             holder[0] = 2;
             holder[1] = 500;
@@ -25,10 +22,11 @@ namespace NanoModbusTests {
             Console.WriteLine(ByteUtils.ToHexString(holder.ToBytes()));
         }
 
-        [Test]
+        [Fact]
         public void testSize() {
             RegisterHolder holder = new RegisterHolder((byte)1, (short)4, (short)5);
-            Assert.AreEqual(holder.Size(), 5 + 10);
+            Assert.Equal(holder.Size(), 5 + 10);
+            Console.WriteLine(holder.ToBytes().ToHexString());
         }
     }
 }

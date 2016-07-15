@@ -125,7 +125,7 @@ namespace Nano.Modbus {
         ///     @param values    待转换的字节数组，不可为空
         ///     @return  转换后的字符串，没有分隔符
         /// </summary>
-        public static string ToHexString(byte[] values) {
+        public static string ToHexString(this byte[] values) {
             return ToHexString(values, values.Length);
         }
 
@@ -134,11 +134,11 @@ namespace Nano.Modbus {
         ///     @param values    待转换的字节数组，不可为空
         ///     @return  转换后的字符串，没有分隔符
         /// </summary>
-        public static string ToHexString(byte[] values, int length) {
+        public static string ToHexString(this byte[] values, int length) {
             if (values == null) {
                 throw new ArgumentNullException(nameof(values));
             }
-            return string.Join(string.Empty, values.Take(length).Select(b => b.ToString("X2")));
+            return string.Join(" ", values.Take(length).Select(b => b.ToString("X2")));
         }
 
 /*        /// <summary>

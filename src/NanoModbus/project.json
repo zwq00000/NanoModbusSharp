@@ -1,16 +1,16 @@
 {
+  "version": "1.0.0-*",
   "title": "Nano Modbus",
   "copyright": "Lingya Tech",
   "description": "Nano Modbus RTU",
-  "version": "1.0.0-*",
   "buildOptions": {
-    "debugType": "portable"
+    "keyFile": "../../RedRiver.snk",
+    "publicSign": true
   },
   "dependencies": {},
   "frameworks": {
-    "net40": {
-      "dependencies": {},
-      "frameworkAssemblies": { "System.Core": "" }
-    }    
+    "net451": {
+      "dependencies": {}
+    }
   }
 }

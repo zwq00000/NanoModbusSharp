@@ -20,13 +20,13 @@ namespace NanoModbusTests {
 
         [Test]
         public void testGetCount() {
-            var coilsCount = 12;
+            short coilsCount = 12;
             var coils = new CoilStatus(coilsCount);
             Assert.AreEqual(coils.Count, coilsCount);
         }
 
         [Test]
-        private void testGetSetCoils(int coilsCount) {
+        private void testGetSetCoils(short coilsCount) {
             var coils = new CoilStatus(coilsCount);
             for (var i = 0; i < coilsCount; i++) {
                 Assert.AreEqual(coils.GetCoil(i), false);
@@ -49,7 +49,7 @@ namespace NanoModbusTests {
         public void testReadResponse1() {
             var portName = "COM4"; // "/dev/ttyS1";
 
-            using (var port = new SerialPort(portName, 115200, 0)) {
+            using (var port = new SerialPort(portName, 115200, 0) {ReadTimeout = 1000,WriteTimeout = 1000}) {
                 port.Open();
                 var coils = new CoilStatus(4);
                 var frame = ModbusFactory.CreateWriteCoilsFrame(1, coils);

@@ -1,5 +1,5 @@
 {
-  "projects": [ "src" ],
-  "sdk": { "runtime": "coreclr" }
+  "projects": [ "src","test" ],
+  "sdk": { "runtime": "clr" }
   
 }

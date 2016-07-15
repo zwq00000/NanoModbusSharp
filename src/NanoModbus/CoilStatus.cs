@@ -11,11 +11,8 @@ namespace Nano.Modbus {
         private const int FUNC_CODE_POS = 1;
         private const short MAX_COILS_COUNT = 0X7D0;
         private readonly byte[] _mStatus;
-
+        
         public CoilStatus(short coilsCount) : this(0, coilsCount) {
-        }
-
-        public CoilStatus(int coilsCount) : this((short) coilsCount) {
         }
 
         /// <summary>

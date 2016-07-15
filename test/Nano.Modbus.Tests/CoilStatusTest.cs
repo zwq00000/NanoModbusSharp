@@ -1,16 +1,13 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Threading;
-using Nano.Modbus;
-using Nano.Modbus.Core;
-using NUnit.Framework;
+using Xunit;
 
 //using NUnit.Framework;
 
-namespace NanoModbusTests {
-    [TestFixture]
+namespace Nano.Modbus.Tests {
     public class CoilStatusTest {
-        [Test]
+        [Fact]
         public void TestGetCoil() {
             testGetSetCoils(4);
             testGetSetCoils(8);
@@ -18,38 +15,38 @@ namespace NanoModbusTests {
             testGetSetCoils(254);
         }
 
-        [Test]
-        public void testGetCount() {
-            var coilsCount = 12;
+        [Fact]
+        public void TestGetCount() {
+            short coilsCount = 12;
             var coils = new CoilStatus(coilsCount);
-            Assert.AreEqual(coils.Count, coilsCount);
+            Assert.Equal(coils.Count, coilsCount);
         }
 
-        [Test]
-        private void testGetSetCoils(int coilsCount) {
+        [Fact]
+        private void testGetSetCoils(short coilsCount) {
             var coils = new CoilStatus(coilsCount);
             for (var i = 0; i < coilsCount; i++) {
-                Assert.AreEqual(coils.GetCoil(i), false);
-                Console.WriteLine(ByteUtils.ToHexString(coils.ToBytes()));
+                Assert.Equal(coils.GetCoil(i), false);
+                Console.WriteLine(coils.ToBytes().ToHexString());
             }
             for (var i = 0; i < coilsCount; i++) {
                 coils.SetCoil(i, true);
-                Assert.AreEqual(coils.GetCoil(i), true);
-                Console.WriteLine(ByteUtils.ToHexString(coils.ToBytes()));
+                Assert.Equal(coils.GetCoil(i), true);
+                Console.WriteLine(coils.ToBytes().ToHexString());
             }
 
             for (var i = 0; i < coilsCount; i++) {
                 coils.SetCoil(i, false);
-                Assert.AreEqual(coils.GetCoil(i), false);
-                Console.WriteLine(ByteUtils.ToHexString(coils.ToBytes()));
+                Assert.Equal(coils.GetCoil(i), false);
+                Console.WriteLine(coils.ToBytes().ToHexString());
             }
         }
 
-        [Test]
-        public void testReadResponse1() {
+        [Fact]
+        public void TestReadResponse1() {
             var portName = "COM4"; // "/dev/ttyS1";
 
-            using (var port = new SerialPort(portName, 115200, 0)) {
+            using (var port = new SerialPort(portName, 115200, 0) {ReadTimeout = 1000,WriteTimeout = 1000}) {
                 port.Open();
                 var coils = new CoilStatus(4);
                 var frame = ModbusFactory.CreateWriteCoilsFrame(1, coils);
@@ -59,23 +56,23 @@ namespace NanoModbusTests {
                 Thread.Sleep(100);
                 var buf = new byte[255];
                 var len = port.Read(buf, 0, buf.Length);
-                Assert.AreEqual(coils.GetCoil(0), false);
+                Assert.Equal(coils.GetCoil(0), false);
             }
         }
 
-        [Test]
+        [Fact]
         public void testSetCoil() {
         }
 
-        [Test]
+        [Fact]
         public void TestToBytes() {
             var coils = new CoilStatus(4);
-            Console.WriteLine(ByteUtils.ToHexString(coils.ToBytes()));
-            Assert.AreEqual(ByteUtils.ToHexString(coils.ToBytes()), "00 00 00 04 01 00");
+            Console.WriteLine(coils.ToBytes().ToHexString());
+            Assert.Equal(coils.ToBytes().ToHexString(), "00 00 00 04 01 00");
 
             coils.SetCoil(0, true);
-            Console.WriteLine(ByteUtils.ToHexString(coils.ToBytes()));
-            Assert.AreEqual(ByteUtils.ToHexString(coils.ToBytes()), "00 00 00 04 01 01");
+            Console.WriteLine(coils.ToBytes().ToHexString());
+            Assert.Equal(coils.ToBytes().ToHexString(), "00 00 00 04 01 01");
         }
     }
 }

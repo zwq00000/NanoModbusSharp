@@ -1,15 +1,13 @@
 ﻿using System;
-using Nano.Modbus;
-using NUnit.Framework;
+using Xunit;
 
-namespace NanoModbusTests {
-    [TestFixture]
+namespace Nano.Modbus.Tests {
     public class WriteCoilsRequestTests {
 
-        [Test]
+        [Fact]
         public void TestConstruct() {
             var request = new WriteCoilsRequest(1, new CoilStatus(4));
-            Console.WriteLine(ByteUtils.ToHexString(request.ToBytes()));
+            Console.WriteLine(request.ToBytes().ToHexString());
         }
     }
 }
